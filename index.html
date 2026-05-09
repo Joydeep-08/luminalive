@@ -69,8 +69,6 @@ textarea{height:90px;line-height:1.6;}
 .copy-btn{background:var(--rose);color:#fff;border:none;border-radius:9px;padding:8px 16px;font-size:11px;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap;}
 .open-btn{display:inline-block;padding:15px 36px;background:linear-gradient(135deg,var(--rose),#c94d7a);color:#fff;border-radius:100px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 6px 24px rgba(212,69,106,0.35);margin-bottom:12px;}
 .reset-btn{background:transparent;color:var(--muted);border:1.5px solid rgba(212,69,106,0.18);border-radius:12px;padding:12px 24px;font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;margin-top:6px;display:block;width:100%;}
-
-/* Loading overlay */
 .loading-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(253,248,242,0.95);backdrop-filter:blur(10px);flex-direction:column;align-items:center;justify-content:center;gap:20px;}
 .loading-overlay.show{display:flex;}
 .loading-orb{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--rose),#e8698a);display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 12px 40px rgba(212,69,106,0.4);animation:pulse 1.5s ease-in-out infinite;}
@@ -133,9 +131,9 @@ textarea{height:90px;line-height:1.6;}
 
   <div class="err" id="errBox"></div>
   <button class="free-prev-btn" onclick="doAction(true)">👁 Preview First</button>
-<button class="pay-btn" onclick="doAction(false)">🌺 &nbsp; Get Her Surprise Link</button>
+  <button class="pay-btn" onclick="doAction(false)">🌺 &nbsp; Get Her Surprise Link</button>
 
- <div class="result" id="resultBox">
+  <div class="result" id="resultBox">
     <div class="result-icon">🌺</div>
     <h3>Send it to Mom!</h3>
     <p>Copy this link and send it — works on any phone 💕</p>
@@ -146,13 +144,13 @@ textarea{height:90px;line-height:1.6;}
     <a id="openLink" class="open-btn" href="#" target="_blank" rel="noopener">Open &amp; Preview →</a>
     <a id="waLink" href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:16px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;text-decoration:none;margin-bottom:12px;">📲 Share via WhatsApp</a>
     <button class="reset-btn" onclick="resetAll()">Make another ↩</button>
-  </div></div>
+  </div>
+</div>
 
 <script>
-var SUPA_URL = 'https://hkcjkydijjjsoafdgcvf.supabase.co';
-var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrY2preWRpampqc29hZmRnY3ZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyOTM3NjYsImV4cCI6MjA5Mzg2OTc2Nn0.54cN9-INZsdEKlyQ0RvwtHNqqWknCRRIPSNt_RaRTtk';
+var SUPA_URL = 'https://zhilwymnmmwsadewiycg.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaWx3eW1ubW13c2FkZXdpeWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzNDE5MTYsImV4cCI6MjA5MzkxNzkxNn0.UCspNq6zOnLtqhpJyjQXEs70-fCd4wah_oSsqWX-xP4';
 
-// petals
 (function(){var e=['🌸','🌺','🌼','🍀','🌹'],w=document.getElementById('petals');for(var i=0;i<14;i++){var d=document.createElement('div');d.className='petal';d.textContent=e[i%e.length];d.style.cssText='left:'+Math.random()*100+'%;animation-delay:'+Math.random()*18+'s;animation-duration:'+(10+Math.random()*12)+'s;font-size:'+(13+Math.random()*12)+'px;position:fixed;z-index:0;';w.appendChild(d);}})();
 
 var balloons=[],bCount=0;
@@ -173,7 +171,6 @@ function loadPic(idx,inp){
   if(!inp.files||!inp.files[0])return;
   var r=new FileReader();
   r.onload=function(e){
-    // 900px, 0.92 quality — sharp on any phone
     compress(e.target.result,900,0.92).then(function(c){
       balloons[idx].photoB64=c;
       document.getElementById('pi'+idx).src=c;
@@ -251,8 +248,6 @@ async function doAction(isPreview){
   }catch(e){hideLoading();showErr('Upload failed: '+e.message);}
 }
 
-
-
 function showLoading(t,s){document.getElementById('loadingTitle').textContent=t;document.getElementById('loadingSub').textContent=s;document.getElementById('loadingOverlay').classList.add('show');}
 function hideLoading(){document.getElementById('loadingOverlay').classList.remove('show');}
 function showErr(m){var b=document.getElementById('errBox');b.textContent='⚠️ '+m;b.style.display='block';setTimeout(function(){b.style.display='none';},7000);}
@@ -276,6 +271,5 @@ function resetAll(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
-
 </body>
 </html>

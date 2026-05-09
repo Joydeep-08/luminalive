@@ -229,22 +229,11 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);disp
   <iframe id="ytPlayer" width="0" height="0" src="" title="bg music" frameborder="0" allow="autoplay" allowfullscreen></iframe>
 </div>
 <script>
-var JSONBIN_KEY='$2a$10$5v95bKiTdPd/CS0keVOTBOXrWUVgMIDW8ocpTfdt.OV0U1edqS/o6';
+var SUPA_URL = 'https://zhilwymnmmwsadewiycg.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaWx3eW1ubW13c2FkZXdpeWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzNDE5MTYsImV4cCI6MjA5MzkxNzkxNn0.UCspNq6zOnLtqhpJyjQXEs70-fCd4wah_oSsqWX-xP4';
 var DEFAULT_MSG="You are the reason I believe in unconditional love. Every warmth I've ever felt, every safety I've known, every soft landing after life knocked me down — that was you. On this Mother's Day, I want you to know that you are not just loved, you are treasured, celebrated, and deeply, endlessly adored. Thank you for being mine.";
 var data=null,isPreview=false;
 var cfC=['#c94d6a','#e8a0a8','#c8884a','#f7dde2','#ffb3c6','#fffdf9','#ffd6e7'];
-
-async function fetchBin(id){
-  var res=await fetch('https://api.jsonbin.io/v3/b/'+encodeURIComponent(id)+'/latest',{
-    headers:{'X-Master-Key':JSONBIN_KEY}
-  });
-  if(!res.ok)throw new Error(res.status);
-  var j=await res.json();
-  return j.record;
-}
-
-var SUPA_URL = 'https://hkcjkydijjjsoafdgcvf.supabase.co';
-var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrY2preWRpampqc29hZmRnY3ZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyOTM3NjYsImV4cCI6MjA5Mzg2OTc2Nn0.54cN9-INZsdEKlyQ0RvwtHNqqWknCRRIPSNt_RaRTtk';
 
 async function loadData(){
   var id=new URLSearchParams(window.location.search).get('id');
@@ -335,8 +324,6 @@ function buildBalloons(msgs){
   field.style.minHeight=(Math.ceil(msgs.length/3)*235+80)+'px';
 }
 
-
-
 function burst(x,y){
   for(var i=0;i<30;i++){
     var el=document.createElement('div'),ang=Math.random()*360,d=70+Math.random()*130;
@@ -374,12 +361,10 @@ function goTab(t){
 }
 
 var musicPlaying=false;
-// ── Background music (calm instrumental, starts on link open) ──
 var MSRC='https://www.youtube.com/embed/450p7goxZqg?autoplay=1&loop=1&playlist=450p7goxZqg&controls=0&mute=0';
 
-// Auto-start music immediately on page load (before button press)
-window.addEventListener('load', function(){
-  setTimeout(function(){ startMusic(); }, 1200);
+window.addEventListener('load',function(){
+  setTimeout(function(){startMusic();},1200);
 });
 
 function startMusic(){
@@ -395,29 +380,17 @@ function toggleMusic(){
   else{f.src=MSRC;musicPlaying=true;p.classList.remove('muted');document.getElementById('micon').textContent='⏸';}
 }
 
-// ── Pop sound — deep thud, not shrill ──
-var popSound=null;
-function getPopSound(){
-  if(!popSound){
-    popSound=new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');
-    popSound.volume=0.0; // mute the shrill one
-  }
-  return popSound;
-}
-
 function playPop(){
   try{
     var ctx=new (window.AudioContext||window.webkitAudioContext)();
-    // Deep thud: low frequency burst
     var buf=ctx.createBuffer(1,ctx.sampleRate*0.25,ctx.sampleRate);
     var d=buf.getChannelData(0);
     for(var i=0;i<d.length;i++){
       var t=i/ctx.sampleRate;
-      // 80Hz thud with fast decay
       d[i]=Math.sin(2*Math.PI*80*t)*Math.exp(-t*18)
            +Math.sin(2*Math.PI*40*t)*Math.exp(-t*12)*0.6
            +Math.sin(2*Math.PI*160*t)*Math.exp(-t*30)*0.3
-           +(Math.random()*2-1)*Math.exp(-t*25)*0.15; // slight noise burst
+           +(Math.random()*2-1)*Math.exp(-t*25)*0.15;
     }
     var src=ctx.createBufferSource();
     src.buffer=buf;
@@ -462,6 +435,4 @@ function openSurprise(){
 loadData();
 </script>
 </body>
-
-
 </html>
